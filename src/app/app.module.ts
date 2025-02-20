@@ -20,7 +20,15 @@ import { ToastModule } from 'primeng/toast';
 import { SliderModule } from 'primeng/slider';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
-import { CountryService } from './core/services/country.service';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ErrorHandlerInterceptor } from './core/interceptors/error-handler.interceptor';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { JuegosService } from './core/services/recibos.service';
+import { SpinnerInterceptorService } from './core/interceptors/spinner-interceptor.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ErrorDialogService } from './core/services/error-dialog.service';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import { SpinnerService } from './core/services/spinner.service';
 
 @NgModule({
     declarations: [
@@ -42,11 +50,14 @@ import { CountryService } from './core/services/country.service';
         ProgressBarModule,
         ToastModule,
         FormsModule,
-        NgxExtendedPdfViewerModule
+        NgxExtendedPdfViewerModule,
+        ProgressSpinnerModule,
+        SpinnerComponent
     ],
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy },
-        CountryService
+        provideHttpClient((withInterceptors([ErrorHandlerInterceptor]))),
+        { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptorService, multi: true },
+        DialogService, ErrorDialogService, SpinnerService, JuegosService
     ],
     bootstrap: [AppComponent]
 })
