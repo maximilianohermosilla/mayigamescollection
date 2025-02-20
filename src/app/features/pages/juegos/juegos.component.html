@@ -2,8 +2,66 @@
     <div class="col-12">
         <div class="card">
             <h4>Juegos Page</h4>
-            <p>This is your empty page template to start building applications.</p>
-            <p-button (click)="cargarSpinner()">Cargar</p-button>
+            <!-- <p-button (click)="cargarSpinner()">Cargar</p-button> -->
+
+            <p-dataView #dv [value]="listaJuegos" [paginator]="true" [rows]="9" filterBy="nombre" [sortField]="sortField"
+                [sortOrder]="sortOrder" layout="grid">
+                <ng-template pTemplate="header">
+                    <div class="grid grid-nogutter flex-column md:flex-row justify-content-between">
+                        <p-dropdown [options]="sortOptions" placeholder="Ordenar Por Plataforma"
+                            (onChange)="onSortChange($event)"></p-dropdown>
+                        <span class="p-input-icon-left mb-2 md:mb-0">
+                            <i class="pi pi-search"></i>
+                            <input type="search" pInputText placeholder="Buscar" (input)="onFilter(dv, $event)">
+                        </span>
+                        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                    </div>
+                </ng-template>
+
+                <ng-template let-juego pTemplate="listItem">
+                    <div class="col-12">
+                        <div class="flex flex-column md:flex-row align-items-center p-3 w-full">
+                            <img [src]="juego.imagen" [alt]="juego.nombre" (error)="juego.imagen = defaultImage" height="65px"
+                                class="my-4 md:my-0 w-9 md:w-10rem shadow-2 mr-5" />
+                            <div class="flex-1 text-center md:text-left">
+                                <div class="font-bold text-2xl">{{juego.nombre}}</div>
+                                <div class="mb-3">{{juego.descripcion}}</div>
+                                <div class="flex align-items-center mt-2">
+                                    <ng-container *ngFor="let juego of juego.juegoPlataformas; let i = index;">
+                                        <img class="mr-2"  [src]="juego.plataforma.imagen" [alt]="juego.plataforma.nombre" width="20px" height="20px">
+                                        <span class="font-semibold mr-4">{{juego.plataforma.nombre}}</span>
+                                    </ng-container>
+                                    <!-- <i class="pi pi-tag mr-2"></i>
+                                    <span class="font-semibold">{{juego.juegoPlataformas[0].plataforma.nombre}}</span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+
+                <ng-template let-juego pTemplate="gridItem">
+                    <div class="col-12 md:col-4">
+                        <div class="card m-3 border-1 surface-border">
+                            <div class="flex align-items-center justify-content-between">
+                                <div class="flex align-items-center">
+                                    <ng-container *ngFor="let juego of juego.juegoPlataformas; let i = index;">
+                                        <img class="mr-2" [src]="juego.plataforma.imagen" [alt]="juego.plataforma.nombre" width="20px" height="20px">
+                                        <span class="font-semibold mr-4">{{juego.plataforma.nombre}}</span>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <img [src]="juego.imagen" [alt]="juego.nombre" (error)="juego.imagen = defaultImage" height="138px"
+                                    class="w-9 shadow-2 my-3 mx-0" />
+                                <div class="text-2xl font-bold">{{juego.nombre}}</div>
+                                <div class="mb-3">{{juego.descripcion}}</div>
+                            </div>
+                            <div class="flex align-items-center justify-content-between">
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-dataView>
         </div>
     </div>
 </div>
