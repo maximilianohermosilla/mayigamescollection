@@ -10,7 +10,7 @@ export class PlataformasService {
     constructor(private http: HttpClient) { }
 
     public GetAll(): Observable<any> {
-        let urlService = `${this.url}Plataforma/`
+        let urlService = `${this.url}/Plataforma/`
         return this.http.get<any>(urlService).pipe(
             catchError((error: any) => {
                 return throwError(() => error);
@@ -20,7 +20,7 @@ export class PlataformasService {
     }
 
     public Create(element: any): Observable<any> {
-        let urlService = `${this.url}Plataforma/`
+        let urlService = `${this.url}/Plataforma/`
 
         return this.http.post<any>(urlService, element).pipe(map(data => {
             return data;

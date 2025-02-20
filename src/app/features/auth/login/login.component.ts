@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { Usuario } from 'src/app/core/interfaces/usuario';
+import { LoginService } from 'src/app/core/services/login.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 
 @Component({
@@ -25,10 +28,28 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
     standalone: false
 })
 export class LoginComponent {
+    public router = inject(Router);
 
     valCheck: string[] = ['remember'];
 
-    password!: string;
+    public user!: string;
+    public password!: string;
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: LayoutService, public loginService: LoginService) {
+        this.loginService.LogOut();
+    }
+    
+    public authenticate() {
+        let usuario: Usuario = {
+            Login: this.user,
+            Password: this.password,
+            IdSistema: 9
+        }
+
+        this.loginService.Authenticate(usuario).subscribe(rta => {            
+            if(rta != undefined){
+                this.router.navigate(['/pages/inicio']);
+            }
+        });
+    }
 }

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlService: 'https://mayicuervo-001-site1.atempurl.com/',
+  urlService: 'https://mayicuervo-001-site1.atempurl.com',
   encriptarSesion: false,
   mostrarDetalles: true
 };

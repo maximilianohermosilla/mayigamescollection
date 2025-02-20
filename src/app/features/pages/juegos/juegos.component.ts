@@ -35,7 +35,7 @@ export class JuegosComponent implements OnInit {
     }
 
     public getAllJuegos() {
-        this.juegosService.GetAllByUsuario(1).subscribe((response) => {
+        this.juegosService.GetAllByUsuario().subscribe((response) => {
             this.listaJuegos = response;
             this.listaJuegosFiltrados = response;
             console.log(response);

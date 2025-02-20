@@ -30,6 +30,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ErrorDialogService } from './core/services/error-dialog.service';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { SpinnerService } from './core/services/spinner.service';
+import { LoginService } from './core/services/login.service';
 
 @NgModule({
     declarations: [
@@ -58,7 +59,7 @@ import { SpinnerService } from './core/services/spinner.service';
     providers: [
         provideHttpClient((withInterceptors([ErrorHandlerInterceptor]))),
         { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptorService, multi: true },
-        DialogService, ErrorDialogService, SpinnerService, JuegosService, PlataformasService
+        LoginService, DialogService, ErrorDialogService, SpinnerService, JuegosService, PlataformasService
     ],
     bootstrap: [AppComponent]
 })

@@ -8,9 +8,9 @@ export const ErrorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(catchError((error: HttpErrorResponse) => {
     let errorMessage = "";
-
-    if(error.error!){
-      errorMessage = error!.error!.Mensaje ?? error!.error.mensaje ?? error!.message ?? "Ocurrió un error";
+    
+    if(error!){
+      errorMessage = error!.message ?? "Ocurrió un error";
     }
 
     errorService.openErrorDialog(errorMessage);
