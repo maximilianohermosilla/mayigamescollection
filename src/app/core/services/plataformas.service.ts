@@ -4,13 +4,13 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
-export class JuegosService {
+export class PlataformasService {
     public url: string = environment.urlService;
 
     constructor(private http: HttpClient) { }
 
-    public GetAllByUsuario(idUsuario: number): Observable<any> {
-        let urlService = `${this.url}Juego/${idUsuario}`
+    public GetAll(): Observable<any> {
+        let urlService = `${this.url}Plataforma/`
         return this.http.get<any>(urlService).pipe(
             catchError((error: any) => {
                 return throwError(() => error);
@@ -20,7 +20,7 @@ export class JuegosService {
     }
 
     public Create(element: any): Observable<any> {
-        let urlService = `${this.url}Juego/`
+        let urlService = `${this.url}Plataforma/`
 
         return this.http.post<any>(urlService, element).pipe(map(data => {
             return data;
