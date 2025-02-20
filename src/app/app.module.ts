@@ -23,7 +23,7 @@ import { FormsModule } from '@angular/forms';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ErrorHandlerInterceptor } from './core/interceptors/error-handler.interceptor';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
-import { JuegosService } from './core/services/recibos.service';
+import { JuegosService } from './core/services/juegos.service';
 import { SpinnerInterceptorService } from './core/interceptors/spinner-interceptor.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ErrorDialogService } from './core/services/error-dialog.service';

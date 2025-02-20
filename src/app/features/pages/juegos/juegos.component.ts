@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { JuegosService } from 'src/app/core/services/recibos.service';
+import { JuegosService } from 'src/app/core/services/juegos.service';
 import { SpinnerService } from 'src/app/core/services/spinner.service';
 
 @Component({
