@@ -1,8 +1,13 @@
 <div class="grid">
     <div class="col-12">
         <div class="card">
-            <h4>Juegos Page</h4>
-            <!-- <p-button (click)="cargarSpinner()">Cargar</p-button> -->
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <h4>Juegos</h4>
+                    <p>{{userName}}</p>
+                </div>
+                <button pButton class="p-button p-button-success" label="Agregar" icon="pi pi-plus" (click)="openFormJuego(undefined)"></button>
+            </div>
 
             <p-dataView #dv [value]="listaJuegosFiltrados" [paginator]="true" [rows]="9" filterBy="nombre"  layout="grid">
                 <ng-template pTemplate="header">
@@ -35,9 +40,10 @@
                                             <a target="_blank" [href]="juego.url" class="font-semibold mr-4">{{juego.plataforma.nombre}}</a>
                                         }
                                     </ng-container>
-                                    <!-- <i class="pi pi-tag mr-2"></i>
-                                    <span class="font-semibold">{{juego.juegoPlataformas[0].plataforma.nombre}}</span> -->
                                 </div>
+                            </div>
+                            <div>
+                                <button pButton class="p-button" label="Editar" icon="pi pi-pencil" (click)="openFormJuego(juego)"></button>
                             </div>
                         </div>
                     </div>
@@ -65,12 +71,20 @@
                                 <div class="text-2xl font-bold">{{juego.nombre}}</div>
                                 <div class="mb-3">{{juego.descripcion}}</div>
                             </div>
-                            <div class="flex align-items-center justify-content-between">
+                            <div class="flex align-items-center justify-content-center mt-2">
+                                    <button pButton class="p-button" label="Editar" icon="pi pi-pencil" (click)="openFormJuego(juego)"></button>
                             </div>
                         </div>
                     </div>
                 </ng-template>
             </p-dataView>
+            <div class="flex justify-content-center mt-1">
+                <span class="font-semibold mr-4">Total: {{listaJuegosFiltrados.length}}</span>
+            </div>
         </div>
     </div>
+    <p-dialog header="Juego" [(visible)]="display" [modal]="true" showEffect="fade"
+            [style]="{width: '30vw', height: '90vh'}" [breakpoints]="{'960px': '75vw'}">
+            <app-form-juego [juego]="juegoSeleccionado()"></app-form-juego>
+    </p-dialog>
 </div>

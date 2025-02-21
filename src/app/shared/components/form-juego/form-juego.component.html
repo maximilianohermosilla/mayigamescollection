@@ -1,0 +1,61 @@
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+    <div class="w-full mx-auto px-2">
+        <div class="text-center mb-3">
+            <div>
+                <img [src]="imagenUrl() || defaultImage" alt="Imagen" height="200px" class="w-9 shadow-2 my-5 mx-0" (error)="onImageError()"/>
+            </div>
+
+        </div>
+
+        <div class="mb-3">
+            <label for="nombre" class="block text-900 text-xl font-medium mb-2">Nombre:</label>
+            <input pInputText class="w-full mb-3" style="padding:1rem;" id="nombre" formControlName="nombre" required/>
+            <div *ngIf="formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched" class="text-danger">
+                El nombre es requerido.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="descripcion" class="block text-900 text-xl font-medium mb-2">Descripción:</label>
+            <input pInputText class="w-full mb-3" style="padding:1rem;" id="descripcion"
+                formControlName="descripcion" />
+        </div>
+
+        <div class="mb-3">
+            <label for="appId" class="block text-900 text-xl font-medium mb-2">App ID:</label>
+            <input pInputText class="w-full mb-3" style="padding:1rem;" id="appId" formControlName="appId" />
+        </div>
+
+        <div class="mb-3">
+            <label for="url" class="block text-900 text-xl font-medium mb-2">URL:</label>
+            <input pInputText class="w-full mb-3" style="padding:1rem;" id="url" formControlName="url" />
+        </div>
+
+        <div class="mb-3">
+            <label for="imagen" class="block text-900 text-xl font-medium mb-2">Imagen:</label>
+            <input pInputText class="w-full mb-3" style="padding:1rem;" id="imagen" formControlName="imagen" (blur)="onImagenUrlChange()"/>
+        </div>
+
+        <div class="mb-3 w-full">
+            <label for="juegoPlataformas" class="block text-900 text-xl font-medium mb-2">Plataformas:</label>
+            <p-multiSelect id="juegoPlataformas" formControlName="juegoPlataformas" [options]="listaPlataformas" placeholder="Selecciona las plataformas"
+                defaultLabel="Selecciona las plataformas" optionLabel="nombre" optionValue="id" class="multiselect-custom w-full">				
+				<ng-template let-plataforma pTemplate="item" class="w-full">
+					<div class="flex flex-row">
+						<img [src]="plataforma!.imagen" width="20px" height="20px" />
+						<div>{{plataforma.nombre}}</div>
+					</div>
+				</ng-template>
+			</p-multiSelect>
+        </div>
+
+        <div class="flex justify-content-center my-4 gap-3">
+            <button pButton class="p-button p-button-outlined p-button-danger" type="button" *ngIf="juego() != undefined" icon="pi pi-trash" label="Borrar" (click)="onDelete()"></button>
+            <button pButton class="p-button p-button-success" type="submit" [disabled]="formulario.invalid" icon="pi pi-check" label="Guardar"></button>
+        </div>
+    </div>
+</form>
+
+<p-confirmDialog></p-confirmDialog>
+<p-messages [value]="msgs"></p-messages>
+<p-toast key="tst" [baseZIndex]="99999"></p-toast>

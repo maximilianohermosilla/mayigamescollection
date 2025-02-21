@@ -7,6 +7,8 @@ import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { FormJuegoComponent } from 'src/app/shared/components/form-juego/form-juego.component';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
     imports: [
@@ -16,7 +18,9 @@ import { InputTextModule } from 'primeng/inputtext';
         DataViewModule,
         DropdownModule,
         InputTextModule,
-        JuegosRoutingModule
+        JuegosRoutingModule,
+        FormJuegoComponent,
+        DialogModule
     ],
     declarations: [JuegosComponent]
 })

@@ -31,6 +31,8 @@ import { ErrorDialogService } from './core/services/error-dialog.service';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { SpinnerService } from './core/services/spinner.service';
 import { LoginService } from './core/services/login.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
     declarations: [
@@ -51,6 +53,7 @@ import { LoginService } from './core/services/login.service';
         DropdownModule,
         ProgressBarModule,
         ToastModule,
+        MessagesModule,
         FormsModule,
         NgxExtendedPdfViewerModule,
         ProgressSpinnerModule,
@@ -59,7 +62,7 @@ import { LoginService } from './core/services/login.service';
     providers: [
         provideHttpClient((withInterceptors([ErrorHandlerInterceptor]))),
         { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptorService, multi: true },
-        LoginService, DialogService, ErrorDialogService, SpinnerService, JuegosService, PlataformasService
+        LoginService, DialogService, ErrorDialogService, SpinnerService, JuegosService, PlataformasService, MessageService, ConfirmationService
     ],
     bootstrap: [AppComponent]
 })

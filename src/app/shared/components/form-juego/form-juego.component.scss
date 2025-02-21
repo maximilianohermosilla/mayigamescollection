@@ -1,0 +1,8 @@
+::ng-deep p-multiselect > div{
+    width: 100%!important;
+}
+
+button:disabled{
+    background: gray;
+    border: 0;
+}
