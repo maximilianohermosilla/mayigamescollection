@@ -6,7 +6,9 @@
                     <h4>Juegos</h4>
                     <p>{{userName}}</p>
                 </div>
-                <button pButton class="p-button p-button-success" label="Agregar" icon="pi pi-plus" (click)="openFormJuego(undefined)"></button>
+                <div>
+                    <button pButton class="p-button p-button-success" label="Agregar" icon="pi pi-plus" (click)="openFormJuego(undefined)"></button>
+                </div>
             </div>
 
             <p-dataView #dv [value]="listaJuegosFiltrados" [paginator]="true" [rows]="9" filterBy="nombre"  layout="grid">

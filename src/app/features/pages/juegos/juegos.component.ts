@@ -57,7 +57,7 @@ export class JuegosComponent implements OnInit {
 
     public onFilter(dv: DataView, event: Event) {
         dv.filter((event.target as HTMLInputElement).value);
-        this.cdr.detectChanges();
+        this.filtrarJuegos();
     }
 
     public filtrarJuegos() {

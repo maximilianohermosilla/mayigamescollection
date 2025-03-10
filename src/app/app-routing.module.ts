@@ -2,6 +2,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { NotfoundComponent } from './features/notfound/notfound.component';
+import { TokenGuard } from './core/guards/token-guard';
 
 @NgModule({
     imports: [
@@ -9,8 +10,8 @@ import { NotfoundComponent } from './features/notfound/notfound.component';
             {
                 path: '', component: AppLayoutComponent,
                 children: [
-                    { path: '', loadChildren: () => import('./features/pages/pages.module').then(m => m.PagesModule) },
-                    { path: 'pages', loadChildren: () => import('./features/pages/pages.module').then(m => m.PagesModule) },
+                    { path: '', loadChildren: () => import('./features/pages/pages.module').then(m => m.PagesModule), canActivate: [TokenGuard] },
+                    { path: 'pages', loadChildren: () => import('./features/pages/pages.module').then(m => m.PagesModule), canActivate: [TokenGuard] },
                 ],
             },
             { path: 'auth', loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule) },
