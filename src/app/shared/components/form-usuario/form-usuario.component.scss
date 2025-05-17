@@ -1,0 +1,18 @@
+::ng-deep p-multiselect > div{
+    width: 100%!important;
+}
+
+button:disabled{
+    background: gray;
+    border: 0;
+}
+
+.form__dropdown{
+    width: 100%;
+    min-width: 100%;
+    margin-bottom: 1rem;
+}
+
+::ng-deep .p-dialog .p-dialog-content {
+    overflow: auto;
+}

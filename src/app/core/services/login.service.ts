@@ -4,7 +4,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TokenService } from './token.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Usuario } from '../interfaces/usuario';
+import { User } from '../interfaces/user';
 
 @Injectable()
 export class LoginService {
@@ -30,7 +30,7 @@ export class LoginService {
         return this.http.get<any[]>(this.url);
     }
 
-    public Authenticate(usuario: Usuario): Observable<any> {
+    public Authenticate(usuario: User): Observable<any> {
         let urlService = `${this.url}/Login`
 
         return this.http.post<any>(urlService, usuario).pipe(map(data => {
@@ -46,6 +46,14 @@ export class LoginService {
         }))
     }
 
+    public Update(usuario: User): Observable<any>{
+        let urlService = `${this.url}/Login`
+
+        return this.http.put<any>(urlService, usuario).pipe(map(data => {
+            return data;
+        }));
+    }
+    
     public LogOut(){
         this.tokenService.logOut();
     }

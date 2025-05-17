@@ -15,10 +15,12 @@ import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { JuegoPlataformasService } from 'src/app/core/services/juego-plataformas.service';
 
 @Component({
   selector: 'app-form-juego',
   imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule, InputTextModule, ToastModule, MessagesModule, ButtonModule, ConfirmDialogModule],
+  providers: [JuegoPlataformasService],
   templateUrl: './form-juego.component.html',
   styleUrl: './form-juego.component.scss'
 })
@@ -35,7 +37,7 @@ export class FormJuegoComponent implements OnInit{
   public msgs: Message[] = [];
 
   constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef, private service: MessageService, private confirmationService: ConfirmationService,
-    private plataformasService: PlataformasService, private juegoService: JuegosService, private tokenService: TokenService) {
+    private plataformasService: PlataformasService, private juegoService: JuegosService, private juegoPlataformaService: JuegoPlataformasService, private tokenService: TokenService) {
     this.formulario = this.fb.group({
       id: [0],
       nombre: ['', Validators.required],
@@ -85,7 +87,6 @@ export class FormJuegoComponent implements OnInit{
 
   public onImagenChange(event: Event): void {
     const input = event.target as HTMLInputElement;
-    console.log(input)
     if (input.files && input.files[0]) {
       const file = input.files[0];
 
@@ -110,25 +111,21 @@ export class FormJuegoComponent implements OnInit{
   public onSubmit(): void {
     if (this.formulario.valid) {
 
-      console.log('Formulario enviado:', this.formulario.value);
+      //console.log('Formulario enviado:', this.formulario.value);
       this.filterPlataformas();
 
       if(this.formulario.value.id > 0){
-        console.log("Update Juego");
         this.juegoService.Update(this.formulario.value).subscribe((response: any) => {
-          console.log(response);
           //this.service.add({ key: 'tst', severity: 'success', summary: 'Confirmación', detail: 'Juego creado con éxito' });
           this.msgs = [];
           this.msgs.push({ severity: 'success', summary: 'Confirmación', detail: 'Juego actualizado con éxito' });
-          setTimeout(() => { window.location.reload() }, 1000);
+          //setTimeout(() => { window.location.reload() }, 1000);
         });
       }else{
-        console.log("Create Juego");
         this.juegoService.Create(this.formulario.value).subscribe((response: any) => {
-          console.log(response);
           this.msgs = [];
           this.msgs.push({ severity: 'success', summary: 'Confirmación', detail: 'Juego creado con éxito' });
-          setTimeout(() => { window.location.reload() }, 1000);
+          //setTimeout(() => { window.location.reload() }, 1000);
         });
       }
     }
@@ -137,9 +134,9 @@ export class FormJuegoComponent implements OnInit{
   public filterPlataformas(){
     let listaPlataformasNueva: any[] = [];
     this.formulario.value.juegoPlataformas.forEach((element: any) => {
-      console.log(element)
       listaPlataformasNueva.push(element);
     });
+
     let listaPlataformasEliminar = this.listaPlataformasPrevias?.filter((item: any) => !listaPlataformasNueva.includes(item.idPlataforma));
     let listaPlataformasAgregar = listaPlataformasNueva?.filter((id: any) => !this.listaPlataformasPrevias!.some((item) => item.idPlataforma === id));
 
@@ -149,8 +146,11 @@ export class FormJuegoComponent implements OnInit{
       }
     });
 
-    console.log(listaPlataformasEliminar);
-    console.log(listaPlataformasAgregar);
+    listaPlataformasEliminar!.forEach(element => {
+      this.juegoPlataformaService.Delete(element).subscribe(response => {
+        console.log(response);
+      });
+    });
   }
 
   public onDelete(){
@@ -166,7 +166,6 @@ export class FormJuegoComponent implements OnInit{
 
       accept: () => {
           this.juegoService.Delete(this.juego()!).subscribe((response) => {
-            console.log(response);
             this.msgs = [];
             this.msgs.push({ severity: 'success', summary: 'Confirmación', detail: 'Juego eliminado con éxito' });
             setTimeout(() => { window.location.reload() }, 1000);

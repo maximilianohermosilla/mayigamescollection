@@ -1,0 +1,68 @@
+<div class="h-100 p-0">
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <div class="grid m-0 p-0">
+            <div class="col-12 lg:col-6 py-0 m-0">            
+                <div class="flex justify-content-center pt-4">
+                    <img [src]="imagenUrl() || defaultImage" alt="Imagen" width="200px" class="shadow-2 mb-5 mx-auto"
+                        (error)="onImageError()" />
+                </div>
+            </div>
+            <div class="col-12 lg:col-6 py-0 m-0">
+                <div class="mb-3">
+                    <label for="nombre" class="block mb-1">Nombre:</label>
+                    <input pInputText class="w-full" style="padding:0.5rem;" id="nombre" formControlName="nombre"
+                        required placeholder="Nombre" />
+                    <div *ngIf="formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched" class="text-red-500">
+                        El nombre es requerido.
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="login" class="block mb-1">Usuario:</label>
+                    <input pInputText class="w-full" style="padding:0.5rem;" id="login" formControlName="login"
+                        required placeholder="Usuario" />
+                    <div *ngIf="formulario.get('login')?.invalid && formulario.get('login')?.touched" class="text-red-500">
+                        El usuario es requerido.
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="correo" class="block mb-1">Correo:</label>
+                    <input pInputText class="w-full" style="padding:0.5rem;" id="correo" formControlName="correo"
+                        required placeholder="Correo" />
+                    <div *ngIf="formulario.get('correo')?.invalid && formulario.get('correo')?.touched" class="text-red-500">
+                        El correo es requerido.
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="password" class="block mb-1">Password:</label>
+                    <input pInputText class="w-full" style="padding:0.5rem;" id="password" formControlName="password" type="password"
+                        required placeholder="Password" />
+                    <div *ngIf="formulario.get('password')?.invalid && formulario.get('password')?.touched" class="text-red-500">
+                        El password es requerido.
+                    </div>
+                </div>
+    
+                <div class="mb-0">
+                    <label for="imagen" class="block mb-1">Imagen:</label>
+    
+                    <div class="p-inputgroup">
+                        <input pInputText class="w-full mb-3" style="padding:0.5rem;" id="imagen" formControlName="imagen"
+                            (blur)="onImagenUrlChange()" />
+                        <app-file-upload (emitFileUpload)="onFileUploaded($event)"></app-file-upload>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex justify-content-center my-5 gap-3">
+            <button pButton class="p-button p-button-success" type="submit" [disabled]="formulario.invalid"
+                icon="pi pi-check" label="Guardar"></button>
+        </div>
+    </form>
+    </div>
+    
+    <p-confirmDialog></p-confirmDialog>
+    <p-messages [value]="msgs"></p-messages>
+    <p-toast key="tst" [baseZIndex]="99999"></p-toast>

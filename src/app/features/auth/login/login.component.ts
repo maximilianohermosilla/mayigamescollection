@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Usuario } from 'src/app/core/interfaces/usuario';
+import { User } from 'src/app/core/interfaces/user';
 import { LoginService } from 'src/app/core/services/login.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 
@@ -40,7 +40,7 @@ export class LoginComponent {
     }
     
     public authenticate() {
-        let usuario: Usuario = {
+        let usuario: User = {
             Login: this.user,
             Password: this.password,
             IdSistema: 9
