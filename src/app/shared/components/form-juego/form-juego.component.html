@@ -41,7 +41,7 @@
             <p-multiSelect id="juegoPlataformas" formControlName="juegoPlataformas" [options]="listaPlataformas" placeholder="Selecciona las plataformas"
                 defaultLabel="Selecciona las plataformas" optionLabel="nombre" optionValue="id" class="multiselect-custom w-full">				
 				<ng-template let-plataforma pTemplate="item" class="w-full">
-					<div class="flex flex-row">
+					<div class="flex flex-row gap-1">
 						<img [src]="plataforma!.imagen" width="20px" height="20px" />
 						<div>{{plataforma.nombre}}</div>
 					</div>

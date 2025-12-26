@@ -119,13 +119,13 @@ export class FormJuegoComponent implements OnInit{
           //this.service.add({ key: 'tst', severity: 'success', summary: 'Confirmación', detail: 'Juego creado con éxito' });
           this.msgs = [];
           this.msgs.push({ severity: 'success', summary: 'Confirmación', detail: 'Juego actualizado con éxito' });
-          //setTimeout(() => { window.location.reload() }, 1000);
+          setTimeout(() => { window.location.reload() }, 1000);
         });
       }else{
         this.juegoService.Create(this.formulario.value).subscribe((response: any) => {
           this.msgs = [];
           this.msgs.push({ severity: 'success', summary: 'Confirmación', detail: 'Juego creado con éxito' });
-          //setTimeout(() => { window.location.reload() }, 1000);
+          setTimeout(() => { window.location.reload() }, 1000);
         });
       }
     }
