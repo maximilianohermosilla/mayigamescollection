@@ -1,8 +1,100 @@
 <div class="grid">
     <div class="col-12">
         <div class="card">
-            <h4>Inicio Page</h4>
-            <p>This is your empty page template to start building applications.</p>
+            <div class="flex align-items-center mb-3">
+                <i class="pi pi-home mr-2 text-4xl"></i>
+                <div>
+                    <h4 class="mb-1">Bienvenido, {{userName}}</h4>
+                    <p class="mt-0 text-600">Panel principal de tu colección de juegos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-4">
+        <div class="card">
+            <div class="flex align-items-center">
+                <div class="flex align-items-center justify-content-center bg-primary p-3 border-round mr-3">
+                    <i class="pi pi-save text-2xl text-white"></i>
+                </div>
+                <div>
+                    <span class="text-600 font-medium">Total Juegos</span>
+                    <div class="text-3xl font-bold">{{totalJuegos}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-4">
+        <div class="card">
+            <div class="flex align-items-center">
+                <div class="flex align-items-center justify-content-center bg-green-500 p-3 border-round mr-3">
+                    <i class="pi pi-th-large text-2xl text-white"></i>
+                </div>
+                <div>
+                    <span class="text-600 font-medium">Total Plataformas</span>
+                    <div class="text-3xl font-bold">{{totalPlataformas}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-4">
+        <div class="card">
+            <div class="flex align-items-center">
+                <div class="flex align-items-center justify-content-center bg-yellow-500 p-3 border-round mr-3">
+                    <i class="pi pi-chart-bar text-2xl text-white"></i>
+                </div>
+                <div>
+                    <span class="text-600 font-medium">Plataformas con juegos</span>
+                    <div class="text-3xl font-bold">{{plataformasConJuegos}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-8">
+        <div class="card">
+            <h5>Juegos por plataforma</h5>
+            <p-chart type="bar" [data]="barData" [options]="barOptions"></p-chart>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-4">
+        <div class="card">
+            <h5>Distribución</h5>
+            <p-chart type="pie" [data]="pieData" [options]="pieOptions" [style]="{'width': '100%'}"></p-chart>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <h5>Juegos recientes</h5>
+            <div class="grid">
+                @for (juego of juegosRecientes; track juego.id) {
+                    <div class="col-12 md:col-4">
+                        <div class="border-1 surface-border border-round p-3 flex align-items-center gap-3">
+                            <img [src]="juego.imagen || defaultImage" (error)="juego.imagen = defaultImage"
+                                [alt]="juego.nombre" width="60" height="60"
+                                class="border-round" style="object-fit: cover;" />
+                            <div class="flex-1">
+                                <div class="font-bold">{{juego.nombre}}</div>
+                                <div class="flex gap-1 mt-1">
+                                    @for (jp of juego.juegoPlataformas; track jp.id) {
+                                        <img [src]="jp.plataforma?.imagen" [alt]="jp.plataforma?.nombre"
+                                            width="16" height="16" class="mr-1" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @empty {
+                    <div class="col-12 text-center text-600 p-3">
+                        <i class="pi pi-info-circle mr-1"></i> No hay juegos registrados aún.
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>
